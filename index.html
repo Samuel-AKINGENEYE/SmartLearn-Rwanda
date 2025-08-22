@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart-Learn Rwanda - Environmental Health Education</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2e8540;
+            --secondary: #3a8bbb;
+            --accent: #f4a442;
+            --light: #f5f9fc;
+            --dark: #2c3e50;
+            --text: #333;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%232e8540" opacity="0.2"/><path d="M0 0L100 100" stroke="%233a8bbb" stroke-width="2" opacity="0.2"/></svg>'), 
+                        linear-gradient(135deg, var(--primary), var(--secondary));
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #e5942b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .lesson-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-img {
+            height: 180px;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Resources Section */
+        .resources {
+            background-color: var(--light);
+            padding: 3rem 0;
+        }
+        
+        .resource-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .resource-item {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            flex: 1 1 300px;
+            max-width: 350px;
+        }
+        
+        .resource-item h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Interactive Section */
+        .interactive-section {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background-color: var(--light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: #e8f0f7;
+            border-color: var(--secondary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">🌱</div>
+                <h1>Smart-Learn Rwanda</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#lessons">Lessons</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Environmental Health Education for a Healthier Rwanda</h2>
+            <p>Learn how environmental factors impact public health and discover practical ways to protect yourself and your community.</p>
+            <a href="#lessons" class="btn">Explore Lessons</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Lessons Section -->
+        <section id="lessons">
+            <h2 class="section-title">Educational Lessons</h2>
+            <div class="lessons-grid">
+                <div class="lesson-card">
+                    <div class="card-img">💧</div>
+                    <div class="card-content">
+                        <h3>Water Quality & Health</h3>
+                        <p>Understand how water contamination affects health and learn methods to ensure safe drinking water in your community.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="lesson-card">
+                    <div class="card-img">🌫️</div>
+                    <div class="card-content">
+                        <h3>Air Pollution & Respiratory Health</h3>
+                        <p>Explore the connection between air quality and respiratory diseases, and learn protective measures.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="lesson-card">
+                    <div class="card-img">🦠</div>
+                    <div class="card-content">
+                        <h3>Sanitation & Disease Prevention</h3>
+                        <p>Discover how proper waste management and sanitation practices can prevent the spread of diseases.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section class="resources" id="resources">
+            <div class="container">
+                <h2 class="section-title">Learning Resources</h2>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <h3><span>📚</span> Downloadable Guides</h3>
+                        <p>Comprehensive PDF guides on environmental health topics for offline learning and community sharing.</p>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <h3><span>🎥</span> Video Lessons</h3>
+                        <p>Visual demonstrations of protective practices and expert interviews on environmental health issues.</p>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <h3><span>📊</span> Community Data</h3>
+                        <p>Access to local environmental health statistics and information specific to different regions of Rwanda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Section -->
+        <section class="interactive-section">
+            <h2 class="section-title">Test Your Knowledge</h2>
+            <div class="quiz-container">
+                <h3>Environmental Health Quiz</h3>
+                <p id="quiz-question">Which of these is the most effective way to prevent waterborne diseases?</p>
+                
+                <button class="quiz-option" onclick="checkAnswer(this, 'correct')">Boiling water before drinking</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 'wrong')">Storing water in closed containers</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 'wrong')">Adding salt to water</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 'wrong')">Filtering water through cloth</button>
+                
+                <p id="quiz-feedback" style="margin-top: 1rem; font-weight: bold; min-height: 24px;"></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Smart-Learn Rwanda is dedicated to providing environmental health education to communities across Rwanda for improved public health outcomes.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#lessons">Lessons</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@smartlearnrwanda.org</p>
+                <p>Phone: +250 790663921</p>
+                <p>Address: Kigali, Rwanda</p>
+                
+                <div class="social-links">
+                    <a href="#">📱</a>
+                    <a href="#">💬</a>
+                    <a href="#">📸</a>
+                    <a href="#">🔗</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Smart-Learn Rwanda. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive Quiz Functionality
+        function checkAnswer(button, answer) {
+            const feedback = document.getElementById('quiz-feedback');
+            const allOptions = document.querySelectorAll('.quiz-option');
+            
+            // Reset all buttons
+            allOptions.forEach(opt => {
+                opt.style.backgroundColor = '';
+                opt.style.borderColor = '';
+                opt.style.color = '';
+            });
+            
+            if (answer === 'correct') {
+                button.style.backgroundColor = '#d4edda';
+                button.style.borderColor = '#28a745';
+                button.style.color = '#155724';
+                feedback.textContent = 'Correct! Boiling water is the most effective method to kill disease-causing microorganisms.';
+                feedback.style.color = '#155724';
+            } else {
+                button.style.backgroundColor = '#f8d7da';
+                button.style.borderColor = '#dc3545';
+                button.style.color = '#721c24';
+                feedback.textContent = 'Incorrect. The correct answer is: Boiling water before drinking.';
+                feedback.style.color = '#721c24';
+                
+                // Highlight the correct answer
+                allOptions.forEach(opt => {
+                    if (opt.onclick.toString().includes('correct')) {
+                        opt.style.backgroundColor = '#d4edda';
+                        opt.style.borderColor = '#28a745';
+                        opt.style.color = '#155724';
+                    }
+                });
+            }
+        }
+        
+        // Simple animation for section titles when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe section titles
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(title => {
+                title.style.opacity = 0;
+                title.style.transform = 'translateY(20px)';
+                title.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(title);
+            });
+        });
+    </script>
+</body>
+</html>
